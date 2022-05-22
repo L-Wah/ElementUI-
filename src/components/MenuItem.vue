@@ -10,7 +10,7 @@
       <el-submenu :index="father.link">
         <span slot="title">{{ father.title }}</span>
         <template v-for="(child, j) in father.children">
-          <menuItem :father="child" @go="go(child)" />
+          <menuItem :father="child" />
         </template>
       </el-submenu>
     </template>
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     go(child) {
-      this.$emit("go", child);
+      this.$router.push({ path: child.link });
     },
   },
 };

@@ -10,7 +10,7 @@
             </template>
             <template v-for="(child, i) in item.children">
               <template v-if="child.children">
-                <menuItem :father="child" @go="go"></menuItem>
+                <menuItem :father="child"></menuItem>
               </template>
               <template v-else>
                 <el-menu-item :index="child.link" @click="go(child)">{{
