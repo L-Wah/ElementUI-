@@ -1,32 +1,53 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <el-row>
+      <el-col :span="4">
+        <el-menu class="el-menu-vertical-demo" :default-active="$route.path">
+          <el-submenu v-for="(item, i) in listData" :key="item.id" :index="item.link">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>{{ item.title }}</span>
+            </template>
+            <template v-for="(child, i) in item.children">
+              <template v-if="child.children">
+                <menuItem :father="child" @go="go"></menuItem>
+              </template>
+              <template v-else>
+                <el-menu-item :index="child.link" @click="go(child)">{{
+                  child.title
+                }}</el-menu-item>
+              </template>
+            </template>
+          </el-submenu>
+        </el-menu>
+      </el-col>
+      <el-col :span="19">
+        <router-view />
+      </el-col>
+    </el-row>
   </div>
 </template>
+<script>
+import menuItem from "./components/MenuItem.vue";
+export default {
+  components: {
+    menuItem,
+  },
+  computed: {
+    listData() {
+      return JSON.parse(sessionStorage.getItem("tranTree"));
+    },
+  },
+  methods: {
+    go(item) {
+      this.$router.push({ path: item.link });
+    },
+  },
+};
+</script>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+<style lang="less" scoped>
+.el-menu-vertical-demo {
+  height: 100vh;
 }
 </style>
