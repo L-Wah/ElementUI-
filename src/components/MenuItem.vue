@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     go(child) {
-      this.$router.push({ path: child.link });
+      this.$router.replace({ path: child.link });
     },
   },
 };

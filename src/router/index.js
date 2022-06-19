@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import {list,tranTree,routerTrans} from '../utils/index';
+import {list,list1,tranTree,routerTrans} from '../utils/index';
 
 Vue.use(VueRouter)
 
@@ -28,8 +28,8 @@ const router = new VueRouter({
 let store = [];
 router.beforeEach((to,from,next)=>{
   if(store.length == 0){
-    let data = tranTree(list);
-    console.log(data);
+    let res = sessionStorage.getItem("list");
+    let data = tranTree(res?JSON.parse(res):list);
     sessionStorage.setItem('tranTree',JSON.stringify(data))
     const newRoutes = routerTrans(data);
     console.log("newRoutes",newRoutes);

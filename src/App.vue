@@ -19,6 +19,8 @@
               </template>
             </template>
           </el-submenu>
+          <button @click="btn(1)">权限1</button>
+          <button @click="btn(2)">权限2</button>
         </el-menu>
       </el-col>
       <el-col :span="19">
@@ -29,6 +31,7 @@
 </template>
 <script>
 import menuItem from "./components/MenuItem.vue";
+import {list,list1} from './utils/index';
 export default {
   components: {
     menuItem,
@@ -40,8 +43,17 @@ export default {
   },
   methods: {
     go(item) {
-      this.$router.push({ path: item.link });
+      this.$router.replace({ path: item.link });
     },
+    btn(num) {
+      if(num == 1){
+        sessionStorage.setItem('list',JSON.stringify(list))
+      }else{
+        sessionStorage.setItem('list',JSON.stringify(list1))
+      }
+      this.$router.replace({path: '/'});
+      this.$router.go(0);
+    }
   },
 };
 </script>

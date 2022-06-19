@@ -49,6 +49,41 @@ let list = [
   },
 ];
 
+let list1 = [
+  {
+    id: 2,
+    pid: 0,
+    path: '/course',
+    name: 'Course',
+    title: '课程管理',
+    link: '/course'
+  },
+  {
+    id: 3,
+    pid: 2,
+    path: 'operate',
+    name: 'CourseOperate',
+    title: '课程操作',
+    link: '/course/operate'
+  },
+  {
+    id: 4,
+    pid: 0,
+    path: '/student',
+    name: 'Student',
+    title: '学生管理',
+    link: '/student',
+  },
+  {
+    id: 5,
+    pid: 4,
+    path: 'add',
+    name: 'StudentAdd',
+    title: '增加学生',
+    link: '/student/add'
+  },
+];
+
 function tranTree(list) {
   let parents = list.filter(p => p.pid === 0); //区分第一级父项
   let children = list.filter(c => c.pid !== 0);//区分第一级子项
@@ -93,6 +128,7 @@ function routerTrans(data) {
 
 export {
   list,
+  list1,
   tranTree,
-  routerTrans
+  routerTrans,
 };
